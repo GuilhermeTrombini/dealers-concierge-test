@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["darwin-arm64", "darwin"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Case {
+  id          String     @id @default(cuid())
+  title       String
+  description String
+  status      CaseStatus @default(OPEN)
+  priority    Int        @default(2)
+  slaMinutes  Int        @default(60)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  notes       Note[]
+  notifications Notification[]
+
+  @@map("cases")
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  caseId    String
+  body      String
+  createdAt DateTime @default(now())
+  case      Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("notes")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  caseId    String
+  type      String   // "SLA_BREACH", "STATUS_CHANGE", etc.
+  message   String
+  createdAt DateTime @default(now())
+  case      Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+enum CaseStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  BREACHED
+}
