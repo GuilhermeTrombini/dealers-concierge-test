@@ -1,0 +1,24 @@
+{
+  "name": "dealers-concierge-test",
+  "version": "1.0.0",
+  "description": "Mini Case System - Dealer Support",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"bun run --cwd apps/api dev\" \"bun run --cwd apps/web dev\"",
+    "build": "bun run --cwd apps/api build && bun run --cwd apps/web build",
+    "test": "bun test",
+    "lint": "bun run --cwd apps/api lint && bun run --cwd apps/web lint",
+    "db:generate": "bun run --cwd apps/api db:generate",
+    "db:migrate": "bun run --cwd apps/api db:migrate",
+    "db:seed": "bun run --cwd apps/api db:seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-darwin-x64": "^4.50.1"
+  }
+}
