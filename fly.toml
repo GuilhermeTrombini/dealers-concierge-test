@@ -1,0 +1,30 @@
+app = "dealers-concierge-test"
+primary_region = "sjc"
+
+[build]
+
+[env]
+  NODE_ENV = "production"
+  PORT = "4000"
+
+[http_service]
+  internal_port = 4000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 512
+
+[[statics]]
+  guest_path = "/app/apps/web/dist"
+  url_prefix = "/"
+
+[deploy]
+  release_command = "cd apps/api && bun run db:migrate"
+
+
