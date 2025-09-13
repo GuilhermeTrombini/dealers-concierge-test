@@ -6,6 +6,8 @@ primary_region = "sjc"
 [env]
   NODE_ENV = "production"
   PORT = "4000"
+  FRONTEND_URL = "https://dealers-concierge-test.fly.dev"
+  VITE_API_URL = "https://dealers-concierge-test.fly.dev/graphql"
 
 [http_service]
   internal_port = 4000
