@@ -114,6 +114,3 @@ prisma/migrations/
 # Fly.io
 .fly/
 
-package-lock.json
-bun.lock
-
