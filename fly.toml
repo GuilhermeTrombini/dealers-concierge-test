@@ -25,6 +25,6 @@ primary_region = "sjc"
   url_prefix = "/"
 
 [deploy]
-  release_command = "cd apps/api && bun run db:migrate"
+  release_command = "cd /app/apps/api && npx prisma migrate deploy"
 
 
