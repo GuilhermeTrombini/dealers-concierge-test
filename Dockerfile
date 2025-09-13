@@ -3,7 +3,7 @@ FROM oven/bun:1 AS base
 WORKDIR /app
 
 # Install dependencies
-COPY package.json bun.lock* ./
+COPY package.json bun.lock ./
 COPY apps/api/package.json ./apps/api/
 COPY apps/web/package.json ./apps/web/
 RUN bun install --frozen-lockfile
