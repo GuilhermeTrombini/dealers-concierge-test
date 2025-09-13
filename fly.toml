@@ -25,6 +25,6 @@ primary_region = "sjc"
   url_prefix = "/"
 
 [deploy]
-  release_command = "bun run db:migrate"
+  release_command = "npx prisma migrate deploy --schema=./apps/api/prisma/schema.prisma"
 
 
