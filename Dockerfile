@@ -1,9 +1,9 @@
 # Use Bun's official image
-FROM oven/bun:1 as base
+FROM oven/bun:1 AS base
 WORKDIR /app
 
 # Install dependencies
-COPY package.json bun.lockb* ./
+COPY package.json bun.lock* ./
 COPY apps/api/package.json ./apps/api/
 COPY apps/web/package.json ./apps/web/
 RUN bun install --frozen-lockfile
@@ -20,16 +20,19 @@ WORKDIR /app
 RUN bun run build
 
 # Production stage
-FROM oven/bun:1-slim as production
+FROM oven/bun:1-slim AS production
 WORKDIR /app
 
-# Copy built application
+# Install OpenSSL for Prisma
+RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+
+# Copy built application and dependencies
 COPY --from=base /app/apps/api/dist ./apps/api/dist
-COPY --from=base /app/apps/api/node_modules ./apps/api/node_modules
 COPY --from=base /app/apps/api/prisma ./apps/api/prisma
 COPY --from=base /app/apps/web/dist ./apps/web/dist
-COPY --from=base /app/apps/web/node_modules ./apps/web/node_modules
+COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/package.json ./
+COPY --from=base /app/bun.lock ./
 
 # Expose port
 EXPOSE 4000
