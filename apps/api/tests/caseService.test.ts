@@ -1,26 +1,14 @@
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test'
-import { PrismaClient, CaseStatus } from '@prisma/client'
+import { CaseStatus } from '@prisma/client'
 import { caseService } from '../src/services/caseService'
-
-// Use in-memory SQLite for tests
-const testPrisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: 'file:./test.db',
-    },
-  },
-})
+import { prisma } from '../src/prisma'
 
 describe('CaseService', () => {
   beforeEach(async () => {
     // Clean up test data
-    await testPrisma.notification.deleteMany()
-    await testPrisma.note.deleteMany()
-    await testPrisma.case.deleteMany()
-  })
-
-  afterEach(async () => {
-    await testPrisma.$disconnect()
+    await prisma.notification.deleteMany()
+    await prisma.note.deleteMany()
+    await prisma.case.deleteMany()
   })
 
   describe('createCase', () => {
