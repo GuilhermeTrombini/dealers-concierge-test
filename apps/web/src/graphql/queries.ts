@@ -1,6 +1,13 @@
-import { gql } from 'graphql-request'
-import { graphqlClient } from './client'
-import type { Case, Note, CreateCaseInput, AddNoteInput, UpdateCaseStatusInput, CaseFilters } from './client'
+import { gql } from 'graphql-request';
+import { graphqlClient } from './client';
+import type {
+  Case,
+  Note,
+  CreateCaseInput,
+  AddNoteInput,
+  UpdateCaseStatusInput,
+  CaseFilters,
+} from './client';
 
 const GET_CASES = gql`
   query GetCases($filters: CaseFilters) {
@@ -26,7 +33,7 @@ const GET_CASES = gql`
       }
     }
   }
-`
+`;
 
 const GET_CASE = gql`
   query GetCase($id: String!) {
@@ -52,7 +59,7 @@ const GET_CASE = gql`
       }
     }
   }
-`
+`;
 
 const CREATE_CASE = gql`
   mutation CreateCase($input: CreateCaseInput!) {
@@ -67,7 +74,7 @@ const CREATE_CASE = gql`
       updatedAt
     }
   }
-`
+`;
 
 const ADD_NOTE = gql`
   mutation AddNote($input: AddNoteInput!) {
@@ -78,7 +85,7 @@ const ADD_NOTE = gql`
       createdAt
     }
   }
-`
+`;
 
 const UPDATE_CASE_STATUS = gql`
   mutation UpdateCaseStatus($input: UpdateCaseStatusInput!) {
@@ -93,12 +100,14 @@ const UPDATE_CASE_STATUS = gql`
       updatedAt
     }
   }
-`
+`;
 
 export const caseQueries = {
   getCases: async (filters?: CaseFilters): Promise<Case[]> => {
-    const response = await graphqlClient.request<{ cases: Case[] }>(GET_CASES, { filters })
-    return response.cases
+    const response = await graphqlClient.request<{ cases: Case[] }>(GET_CASES, {
+      filters,
+    });
+    return response.cases;
   },
 
   getCase: (id: string): Promise<{ case: Case | null }> =>
@@ -110,8 +119,8 @@ export const caseQueries = {
   addNote: (input: AddNoteInput): Promise<{ addNote: Note }> =>
     graphqlClient.request(ADD_NOTE, { input }),
 
-  updateCaseStatus: (input: UpdateCaseStatusInput): Promise<{ updateCaseStatus: Case }> =>
+  updateCaseStatus: (
+    input: UpdateCaseStatusInput
+  ): Promise<{ updateCaseStatus: Case }> =>
     graphqlClient.request(UPDATE_CASE_STATUS, { input }),
-}
-
-
+};

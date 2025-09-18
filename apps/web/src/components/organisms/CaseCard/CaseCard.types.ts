@@ -1,5 +1,5 @@
-import type { Case } from '../../../graphql/client'
+import type { Case } from '../../../graphql/client';
 
 export interface CaseCardProps {
-  case_: Case
+  case_: Case;
 }

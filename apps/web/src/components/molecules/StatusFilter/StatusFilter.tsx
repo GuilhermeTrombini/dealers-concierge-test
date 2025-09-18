@@ -1,9 +1,9 @@
-import { StatusFilterProps } from './StatusFilter.types'
-import type { CaseStatus } from '../../../graphql/client'
+import { StatusFilterProps } from './StatusFilter.types';
+import type { CaseStatus } from '../../../graphql/client';
 
-export const StatusFilter: React.FC<StatusFilterProps> = ({ 
-  selectedStatus, 
-  onStatusChange 
+export const StatusFilter: React.FC<StatusFilterProps> = ({
+  selectedStatus,
+  onStatusChange,
 }) => {
   const statuses: Array<{ value: CaseStatus | 'ALL'; label: string }> = [
     { value: 'ALL', label: 'All Cases' },
@@ -11,11 +11,11 @@ export const StatusFilter: React.FC<StatusFilterProps> = ({
     { value: 'IN_PROGRESS', label: 'In Progress' },
     { value: 'RESOLVED', label: 'Resolved' },
     { value: 'BREACHED', label: 'Breached' },
-  ]
+  ];
 
   return (
-    <div className="flex space-x-2">
-      {statuses.map((status) => (
+    <div className='flex space-x-2'>
+      {statuses.map(status => (
         <button
           key={status.value}
           onClick={() => onStatusChange(status.value)}
@@ -29,5 +29,5 @@ export const StatusFilter: React.FC<StatusFilterProps> = ({
         </button>
       ))}
     </div>
-  )
-}
+  );
+};

@@ -17,6 +17,7 @@ RUN bun run db:generate
 
 # Build the application
 WORKDIR /app
+ENV VITE_API_URL=https://dealers-concierge-test.fly.dev/graphql
 RUN bun run build
 
 # Production stage

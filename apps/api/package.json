@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "bun run --hot src/server.ts",
-    "build": "bun build src/server.ts --outdir dist --target bun",
-    "start": "bun dist/server.js",
+    "build": "bun build src/server.ts --outdir dist --target node --external @prisma/client",
+    "start": "bun run dist/server.js",
     "test": "bun test",
     "lint": "eslint src --ext .ts",
     "db:generate": "prisma generate",

@@ -1,7 +1,7 @@
-import React, { useId } from 'react'
-import { FormFieldProps } from './FormField.types'
-import { Label } from '../../atoms'
-import { clsx } from 'clsx'
+import React, { useId } from 'react';
+import { FormFieldProps } from './FormField.types';
+import { Label } from '../../atoms';
+import { clsx } from 'clsx';
 
 export const FormField: React.FC<FormFieldProps> = ({
   label,
@@ -10,17 +10,19 @@ export const FormField: React.FC<FormFieldProps> = ({
   error,
   className,
 }) => {
-  const id = useId()
-  
+  const id = useId();
+
   return (
     <div className={clsx('space-y-1', className)}>
-      <Label htmlFor={id} required={required}>{label}</Label>
+      <Label htmlFor={id} required={required}>
+        {label}
+      </Label>
       {React.cloneElement(children as React.ReactElement, { id })}
       {error && (
-        <p className="text-sm text-red-600" role="alert">
+        <p className='text-sm text-red-600' role='alert'>
           {error}
         </p>
       )}
     </div>
-  )
-}
+  );
+};

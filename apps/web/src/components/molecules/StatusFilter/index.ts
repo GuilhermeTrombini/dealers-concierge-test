@@ -1,2 +1,2 @@
-export { StatusFilter } from './StatusFilter'
-export type { StatusFilterProps } from './StatusFilter.types'
+export { StatusFilter } from './StatusFilter';
+export type { StatusFilterProps } from './StatusFilter.types';

@@ -1,29 +1,31 @@
-import { prisma } from './prisma'
-import { CaseStatus } from './schema/types'
+import { prisma } from './prisma';
+import { CaseStatus } from './schema/types';
 
 async function main() {
-  console.log('Seeding database...')
+  console.log('Seeding database...');
 
   // Create some sample cases
   const case1 = await prisma.case.create({
     data: {
       title: 'Dealer Portal Login Issue',
-      description: 'Unable to access dealer portal with valid credentials. Getting 500 error.',
+      description:
+        'Unable to access dealer portal with valid credentials. Getting 500 error.',
       status: CaseStatus.OPEN,
       priority: 3,
       slaMinutes: 60,
     },
-  })
+  });
 
   const case2 = await prisma.case.create({
     data: {
       title: 'Inventory Sync Problem',
-      description: 'Vehicle inventory not syncing properly with external systems.',
+      description:
+        'Vehicle inventory not syncing properly with external systems.',
       status: CaseStatus.IN_PROGRESS,
       priority: 2,
       slaMinutes: 120,
     },
-  })
+  });
 
   const case3 = await prisma.case.create({
     data: {
@@ -33,7 +35,7 @@ async function main() {
       priority: 4,
       slaMinutes: 30,
     },
-  })
+  });
 
   // Add some notes
   await prisma.note.createMany({
@@ -55,7 +57,7 @@ async function main() {
         body: 'Issue resolved. Payment gateway was experiencing delays.',
       },
     ],
-  })
+  });
 
   // Add some notifications
   await prisma.notification.createMany({
@@ -76,21 +78,19 @@ async function main() {
         message: 'Case status changed to RESOLVED',
       },
     ],
-  })
+  });
 
-  console.log('Database seeded successfully!')
-  console.log(`Created ${await prisma.case.count()} cases`)
-  console.log(`Created ${await prisma.note.count()} notes`)
-  console.log(`Created ${await prisma.notification.count()} notifications`)
+  console.log('Database seeded successfully!');
+  console.log(`Created ${await prisma.case.count()} cases`);
+  console.log(`Created ${await prisma.note.count()} notes`);
+  console.log(`Created ${await prisma.notification.count()} notifications`);
 }
 
 main()
-  .catch((e) => {
-    console.error(e)
-    process.exit(1)
+  .catch(e => {
+    console.error(e);
+    process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect()
-  })
-
-  
+    await prisma.$disconnect();
+  });

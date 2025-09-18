@@ -23,6 +23,7 @@ This system provides a simple ticketing interface for dealers to open and manage
 ### Tech Stack
 
 **Backend**
+
 - **Runtime**: Bun (fast JavaScript runtime)
 - **API**: GraphQL with Pothos (type-safe schema)
 - **Database**: PostgreSQL with Prisma ORM
@@ -30,6 +31,7 @@ This system provides a simple ticketing interface for dealers to open and manage
 - **Validation**: Zod for input validation
 
 **Frontend**
+
 - **Framework**: React 18 with TypeScript
 - **Build Tool**: Vite for fast development
 - **Styling**: Tailwind CSS for utility-first styling
@@ -37,6 +39,7 @@ This system provides a simple ticketing interface for dealers to open and manage
 - **GraphQL Client**: graphql-request for API communication
 
 **Infrastructure**
+
 - **Deployment**: Fly.io with Docker
 - **Database**: Fly Postgres (managed)
 - **Cache/Queue**: Fly Redis (managed)
@@ -74,6 +77,7 @@ This system provides a simple ticketing interface for dealers to open and manage
 ### Local Development
 
 1. **Clone and Install**
+
    ```bash
    git clone <repository-url>
    cd dealers-concierge-test
@@ -81,24 +85,27 @@ This system provides a simple ticketing interface for dealers to open and manage
    ```
 
 2. **Set up Environment**
+
    ```bash
    cp env.example .env
    # Edit .env with your database and Redis URLs
    ```
 
 3. **Start Services**
+
    ```bash
    # Start PostgreSQL and Redis (using Docker)
    docker-compose up -d
-   
+
    # Run database migrations
    bun run db:migrate
-   
+
    # Seed the database
    bun run db:seed
    ```
 
 4. **Start Development Servers**
+
    ```bash
    # Start both API and frontend
    bun run dev
@@ -135,6 +142,7 @@ bun run --cwd apps/api start
 ### Core Entities
 
 **Case**
+
 - `id`: Unique identifier
 - `title`: Case title
 - `description`: Detailed description
@@ -145,12 +153,14 @@ bun run --cwd apps/api start
 - `updatedAt`: Last update timestamp
 
 **Note**
+
 - `id`: Unique identifier
 - `caseId`: Reference to parent case
 - `body`: Note content
 - `createdAt`: Creation timestamp
 
 **Notification**
+
 - `id`: Unique identifier
 - `caseId`: Reference to parent case
 - `type`: Notification type (e.g., "SLA_BREACH")
@@ -172,15 +182,18 @@ BREACHED ◄────────── BREACHED
 ### GraphQL Schema
 
 **Queries**
+
 - `cases(filters: CaseFilters)`: List cases with optional filtering
 - `case(id: String!)`: Get single case by ID
 
 **Mutations**
+
 - `createCase(input: CreateCaseInput!)`: Create new case
 - `addNote(input: AddNoteInput!)`: Add note to case
 - `updateCaseStatus(input: UpdateCaseStatusInput!)`: Update case status
 
 **Types**
+
 ```graphql
 type Case {
   id: ID!
@@ -208,21 +221,25 @@ enum CaseStatus {
 ### Fly.io Deployment
 
 1. **Install Fly CLI**
+
    ```bash
    curl -L https://fly.io/install.sh | sh
    ```
 
 2. **Login to Fly**
+
    ```bash
    fly auth login
    ```
 
 3. **Create App**
+
    ```bash
    fly apps create dealers-concierge-test
    ```
 
 4. **Set Environment Variables**
+
    ```bash
    fly secrets set DATABASE_URL="postgresql://..."
    fly secrets set REDIS_HOST="..."
@@ -237,12 +254,14 @@ enum CaseStatus {
 ### Environment Variables
 
 **Required**
+
 - `DATABASE_URL`: PostgreSQL connection string
 - `REDIS_HOST`: Redis server hostname
 - `REDIS_PORT`: Redis server port (default: 6379)
 - `REDIS_PASSWORD`: Redis password (if required)
 
 **Optional**
+
 - `PORT`: API server port (default: 4000)
 - `NODE_ENV`: Environment (development/production)
 - `VITE_API_URL`: Frontend API URL (default: http://localhost:4000/graphql)
@@ -252,18 +271,21 @@ enum CaseStatus {
 ### Test Types
 
 **Unit Tests**
+
 - Business logic in service layer
 - SLA calculation functions
 - Status transition validation
 - Input validation schemas
 
 **Integration Tests**
+
 - GraphQL API endpoints
 - Database operations
 - Background job processing
 - End-to-end workflows
 
 **E2E Tests** (Optional)
+
 - User workflows with Playwright
 - Case creation and management
 - SLA breach detection
@@ -334,7 +356,7 @@ bun test --coverage
 ✅ **Type Safety**: End-to-end TypeScript  
 ✅ **Testing**: Unit and integration tests  
 ✅ **CI/CD**: GitHub Actions pipeline  
-✅ **Production Deploy**: Fly.io with Docker  
+✅ **Production Deploy**: Fly.io with Docker
 
 ### What's Intentionally Excluded
 
@@ -344,7 +366,7 @@ bun test --coverage
 ❌ **Pagination**: Simple top-N results  
 ❌ **File Attachments**: No file upload  
 ❌ **Search**: No full-text search  
-❌ **Mobile App**: Web-only interface  
+❌ **Mobile App**: Web-only interface
 
 ### Why These Choices?
 
@@ -357,6 +379,7 @@ bun test --coverage
 ## 🚀 Future Enhancements
 
 ### Phase 2 (Next Steps)
+
 - Add authentication and authorization
 - Implement real-time updates with WebSockets
 - Add file attachment support
@@ -364,6 +387,7 @@ bun test --coverage
 - Add email notifications
 
 ### Phase 3 (Long Term)
+
 - Multi-tenancy support
 - Advanced analytics and reporting
 - Mobile application

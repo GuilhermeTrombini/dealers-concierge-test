@@ -1,5 +1,5 @@
-import { InputProps } from './Input.types'
-import { clsx } from 'clsx'
+import { InputProps } from './Input.types';
+import { clsx } from 'clsx';
 
 export const Input: React.FC<InputProps> = ({
   type = 'text',
@@ -20,7 +20,7 @@ export const Input: React.FC<InputProps> = ({
       id={id}
       name={name}
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
       required={required}
       disabled={disabled}
@@ -28,5 +28,5 @@ export const Input: React.FC<InputProps> = ({
       max={max}
       className={clsx('input', className)}
     />
-  )
-}
+  );
+};

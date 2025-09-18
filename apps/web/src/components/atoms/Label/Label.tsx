@@ -1,5 +1,5 @@
-import { LabelProps } from './Label.types'
-import { clsx } from 'clsx'
+import { LabelProps } from './Label.types';
+import { clsx } from 'clsx';
 
 export const Label: React.FC<LabelProps> = ({
   children,
@@ -18,5 +18,5 @@ export const Label: React.FC<LabelProps> = ({
     >
       {children}
     </label>
-  )
-}
+  );
+};

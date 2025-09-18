@@ -14,12 +14,17 @@
     "test:web": "bun run --cwd apps/web test:run",
     "test:all": "concurrently \"bun run --cwd apps/api test\" \"bun run --cwd apps/web test:run\"",
     "lint": "bun run --cwd apps/api lint && bun run --cwd apps/web lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "format:api": "prettier --write apps/api/src/**/*.{ts,tsx,js,jsx,json}",
+    "format:web": "prettier --write apps/web/src/**/*.{ts,tsx,js,jsx,json}",
     "db:generate": "bun run --cwd apps/api db:generate",
     "db:migrate": "bun run --cwd apps/api db:migrate",
     "db:seed": "bun run --cwd apps/api db:seed"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "prettier": "^3.1.1"
   },
   "optionalDependencies": {
     "@rollup/rollup-darwin-x64": "^4.50.1"

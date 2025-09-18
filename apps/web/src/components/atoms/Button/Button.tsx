@@ -1,17 +1,17 @@
-import { ButtonProps } from './Button.types'
-import { clsx } from 'clsx'
+import { ButtonProps } from './Button.types';
+import { clsx } from 'clsx';
 
 const buttonVariants = {
   primary: 'btn btn-primary',
   secondary: 'btn btn-secondary',
   danger: 'btn btn-danger',
-}
+};
 
 const buttonSizes = {
   sm: 'px-3 py-1.5 text-sm',
   md: 'px-4 py-2 text-base',
   lg: 'px-6 py-3 text-lg',
-}
+};
 
 export const Button: React.FC<ButtonProps> = ({
   children,
@@ -36,5 +36,5 @@ export const Button: React.FC<ButtonProps> = ({
     >
       {children}
     </button>
-  )
-}
+  );
+};

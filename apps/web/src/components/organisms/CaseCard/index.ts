@@ -1,2 +1,2 @@
-export { CaseCard } from './CaseCard'
-export type { CaseCardProps } from './CaseCard.types'
+export { CaseCard } from './CaseCard';
+export type { CaseCardProps } from './CaseCard.types';

@@ -1,20 +1,20 @@
-import { describe, it, expect, beforeEach } from 'bun:test'
-import { createYoga } from 'graphql-yoga'
-import { schema } from '../src/schema'
-import { prisma } from '../src/prisma'
+import { describe, it, expect, beforeEach } from 'bun:test';
+import { createYoga } from 'graphql-yoga';
+import { schema } from '../src/schema';
+import { prisma } from '../src/prisma';
 
 const yoga = createYoga({
   schema,
   context: { prisma },
-})
+});
 
 describe('GraphQL Integration Tests', () => {
   beforeEach(async () => {
     // Clean up test data
-    await prisma.notification.deleteMany()
-    await prisma.note.deleteMany()
-    await prisma.case.deleteMany()
-  })
+    await prisma.notification.deleteMany();
+    await prisma.note.deleteMany();
+    await prisma.case.deleteMany();
+  });
 
   describe('Case Queries', () => {
     it('should create and retrieve a case', async () => {
@@ -29,7 +29,7 @@ describe('GraphQL Integration Tests', () => {
             slaMinutes
           }
         }
-      `
+      `;
 
       const variables = {
         input: {
@@ -38,21 +38,21 @@ describe('GraphQL Integration Tests', () => {
           priority: 3,
           slaMinutes: 90,
         },
-      }
+      };
 
       const response = await yoga.fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: mutation, variables }),
-      })
+      });
 
-      const result = await response.json()
-      
-      expect(result.data.createCase.title).toBe('Test Case')
-      expect(result.data.createCase.status).toBe('OPEN')
-      expect(result.data.createCase.priority).toBe(3)
-      expect(result.data.createCase.slaMinutes).toBe(90)
-    })
+      const result = await response.json();
+
+      expect(result.data.createCase.title).toBe('Test Case');
+      expect(result.data.createCase.status).toBe('OPEN');
+      expect(result.data.createCase.priority).toBe(3);
+      expect(result.data.createCase.slaMinutes).toBe(90);
+    });
 
     it('should retrieve cases with filters', async () => {
       // Create test cases
@@ -73,7 +73,7 @@ describe('GraphQL Integration Tests', () => {
             slaMinutes: 120,
           },
         ],
-      })
+      });
 
       const query = `
         query GetCases($filters: CaseFilters) {
@@ -83,26 +83,26 @@ describe('GraphQL Integration Tests', () => {
             status
           }
         }
-      `
+      `;
 
       const variables = {
         filters: {
           status: 'OPEN',
         },
-      }
+      };
 
       const response = await yoga.fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query, variables }),
-      })
+      });
 
-      const result = await response.json()
-      
-      expect(result.data.cases).toHaveLength(1)
-      expect(result.data.cases[0].status).toBe('OPEN')
-    })
-  })
+      const result = await response.json();
+
+      expect(result.data.cases).toHaveLength(1);
+      expect(result.data.cases[0].status).toBe('OPEN');
+    });
+  });
 
   describe('Note Mutations', () => {
     it('should add a note to a case', async () => {
@@ -115,7 +115,7 @@ describe('GraphQL Integration Tests', () => {
           priority: 2,
           slaMinutes: 60,
         },
-      })
+      });
 
       const mutation = `
         mutation AddNote($input: AddNoteInput!) {
@@ -126,27 +126,27 @@ describe('GraphQL Integration Tests', () => {
             createdAt
           }
         }
-      `
+      `;
 
       const variables = {
         input: {
           caseId: testCase.id,
           body: 'This is a test note',
         },
-      }
+      };
 
       const response = await yoga.fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: mutation, variables }),
-      })
+      });
 
-      const result = await response.json()
-      
-      expect(result.data.addNote.body).toBe('This is a test note')
-      expect(result.data.addNote.caseId).toBe(testCase.id)
-    })
-  })
+      const result = await response.json();
+
+      expect(result.data.addNote.body).toBe('This is a test note');
+      expect(result.data.addNote.caseId).toBe(testCase.id);
+    });
+  });
 
   describe('Status Updates', () => {
     it('should update case status', async () => {
@@ -159,7 +159,7 @@ describe('GraphQL Integration Tests', () => {
           priority: 2,
           slaMinutes: 60,
         },
-      })
+      });
 
       const mutation = `
         mutation UpdateCaseStatus($input: UpdateCaseStatusInput!) {
@@ -168,26 +168,24 @@ describe('GraphQL Integration Tests', () => {
             status
           }
         }
-      `
+      `;
 
       const variables = {
         input: {
           caseId: testCase.id,
           status: 'IN_PROGRESS',
         },
-      }
+      };
 
       const response = await yoga.fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: mutation, variables }),
-      })
+      });
 
-      const result = await response.json()
-      
-      expect(result.data.updateCaseStatus.status).toBe('IN_PROGRESS')
-    })
-  })
-})
+      const result = await response.json();
 
-
+      expect(result.data.updateCaseStatus.status).toBe('IN_PROGRESS');
+    });
+  });
+});

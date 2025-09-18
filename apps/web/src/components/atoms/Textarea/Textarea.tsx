@@ -1,5 +1,5 @@
-import { TextareaProps } from './Textarea.types'
-import { clsx } from 'clsx'
+import { TextareaProps } from './Textarea.types';
+import { clsx } from 'clsx';
 
 export const Textarea: React.FC<TextareaProps> = ({
   value,
@@ -18,7 +18,7 @@ export const Textarea: React.FC<TextareaProps> = ({
       id={id}
       name={name}
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
       required={required}
       disabled={disabled}
@@ -26,5 +26,5 @@ export const Textarea: React.FC<TextareaProps> = ({
       cols={cols}
       className={clsx('input', className)}
     />
-  )
-}
+  );
+};

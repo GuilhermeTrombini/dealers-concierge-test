@@ -1,9 +1,9 @@
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 
 export interface FormFieldProps {
-  label: string
-  children: ReactNode
-  required?: boolean
-  error?: string
-  className?: string
+  label: string;
+  children: ReactNode;
+  required?: boolean;
+  error?: string;
+  className?: string;
 }

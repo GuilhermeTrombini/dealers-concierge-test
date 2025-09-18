@@ -1,7 +1,5 @@
-import { builder } from './builder'
-import './types'
-import './resolvers'
+import { builder } from './builder';
+import './types';
+import './resolvers';
 
-export const schema = builder.toSchema()
-
-
+export const schema = builder.toSchema();
